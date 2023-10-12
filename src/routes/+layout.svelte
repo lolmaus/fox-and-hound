@@ -28,3 +28,5 @@
     Sign in
   </a>
 {/if}
+
+<slot />
