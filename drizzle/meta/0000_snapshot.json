@@ -1,0 +1,37 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "id": "e0f22658-03d4-43dc-9abd-3a357256cdff",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "page_insights": {
+      "name": "page_insights",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "views": {
+          "name": "views",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

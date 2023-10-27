@@ -12,7 +12,8 @@
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write .",
 		"test:integration": "playwright test",
-		"test:unit": "vitest"
+		"test:unit": "vitest",
+		"migrate": "drizzle-kit generate:pg"
 	},
 	"devDependencies": {
 		"@auth/core": "^0.16.0",
@@ -23,6 +24,10 @@
 		"@sveltejs/kit": "^1.20.4",
 		"@typescript-eslint/eslint-plugin": "^6.0.0",
 		"@typescript-eslint/parser": "^6.0.0",
+		"@vercel/postgres": "^0.5.0",
+		"dotenv-expand": "^10.0.0",
+		"drizzle-kit": "^0.19.13",
+		"drizzle-orm": "^0.28.6",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte": "^2.30.0",
