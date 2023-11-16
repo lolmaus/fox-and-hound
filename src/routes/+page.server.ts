@@ -1,28 +1,28 @@
-import { conn } from "$lib/db/conn.server";
-import { PageInsights } from "$lib/db/schema";
-import { eq } from "drizzle-orm";
+import { isDbMock } from '$lib/db/mock';
+import { PageInsights } from '$lib/db/schema';
+import { eq } from 'drizzle-orm';
 
 export const load = async () => {
-  return {
-    streamed: {
-      views: fetchViews(),
-    },
-  };
+	return {
+		streamed: {
+			views: fetchViews()
+		}
+	};
 };
 
 const fetchViews = async () => {
-  const insights = await conn
-    .select()
-    .from(PageInsights)
-    .where(eq(PageInsights.id, 1));
+	if (isDbMock) {
+		const { PageInsightsMock } = await import('$lib/db/schema');
 
-  const views = ++insights[0].views;
+		return ++PageInsightsMock.views;
+	} else {
+		const { conn } = await import('$lib/db/conn.server');
+		const insights = await conn.select().from(PageInsights).where(eq(PageInsights.id, 1));
 
-  await conn
-    .update(PageInsights)
-    .set({ views })
-    .where(eq(PageInsights.id, 1))
-    .returning();
+		const views = ++insights[0].views;
 
-  return views;
-}
+		await conn.update(PageInsights).set({ views }).where(eq(PageInsights.id, 1)).returning();
+
+		return views;
+	}
+};

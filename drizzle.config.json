@@ -1,5 +1,6 @@
 {
-  "out": "./drizzle",
-  "schema": "./src/lib/db/schema.ts",
-  "breakpoints": true
+	"out": "./drizzle",
+	"schema": "./src/lib/db/schema.ts",
+	"breakpoints": true,
+	"driver": "pg"
 }
