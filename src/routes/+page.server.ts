@@ -5,14 +5,14 @@ import { eq } from 'drizzle-orm';
 export const load = async () => {
 	return {
 		streamed: {
-			views: fetchViews()
-		}
+			views: fetchViews(),
+		},
 	};
 };
 
-const fetchViews = async () => {
+const fetchViews = async (): Promise<number> => {
 	if (isDbMock) {
-		const { PageInsightsMock } = await import('$lib/db/schema');
+		const { PageInsightMock: PageInsightsMock } = await import('$lib/db/schema');
 
 		return ++PageInsightsMock.views;
 	} else {

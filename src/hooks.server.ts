@@ -9,8 +9,8 @@ export const handle = sequence(
 	SvelteKitAuth({
 		providers: [
 			GitHub({ clientId: GITHUB_ID, clientSecret: GITHUB_SECRET }),
-			GoogleProvider({ clientId: GOOGLE_ID, clientSecret: GOOGLE_SECRET })
-		]
+			GoogleProvider({ clientId: GOOGLE_ID, clientSecret: GOOGLE_SECRET }),
+		],
 	}),
 
 	// http://web.archive.org/web/20230327032830/https://snippets.khromov.se/configure-cors-in-sveltekit-to-access-your-api-routes-from-a-different-host/
@@ -27,8 +27,8 @@ export const handle = sequence(
 					headers: {
 						'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
 						'Access-Control-Allow-Origin': '*',
-						'Access-Control-Allow-Headers': '*'
-					}
+						'Access-Control-Allow-Headers': '*',
+					},
 				});
 			}
 		}

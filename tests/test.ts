@@ -5,14 +5,14 @@ test('index page has expected h1', async ({ page }) => {
 		await fetch('http://localhost:4173/api/db-mock', {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
 				purge: true,
 				pageInsights: {
-					views: 544
-				}
-			})
+					views: 544,
+				},
+			}),
 		});
 	});
 
