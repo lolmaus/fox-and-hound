@@ -1,13 +1,20 @@
 {
-	"version": "5",
-	"dialect": "pg",
-	"entries": [
-		{
-			"idx": 0,
-			"version": "5",
-			"when": 1698417660455,
-			"tag": "0000_youthful_proudstar",
-			"breakpoints": true
-		}
-	]
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1698417660455,
+      "tag": "0000_youthful_proudstar",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1700839496365,
+      "tag": "0001_sleepy_felicia_hardy",
+      "breakpoints": true
+    }
+  ]
 }

@@ -1,6 +1,19 @@
 import { isDbMock } from '$lib/db/mock';
-import { PageInsightsMock } from '$lib/db/schema';
+import { PageInsightMock } from '$lib/db/schema';
 import type { RequestEvent } from './$types';
+import z from 'zod';
+
+const schema = z.object({
+	purge: z.boolean().optional(),
+
+	pageInsights: z
+		.object({
+			views: z.number().optional(),
+		})
+		.optional(),
+});
+
+type Schema = z.infer<typeof schema>;
 
 export async function POST({ request }: RequestEvent) {
 	if (!isDbMock) {
@@ -8,42 +21,30 @@ export async function POST({ request }: RequestEvent) {
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	let requestData: any;
+	let requestDataRaw: any;
 
 	try {
-		requestData = await request.json();
+		requestDataRaw = await request.json();
 	} catch (e) {
 		if (e instanceof SyntaxError) {
 			return new Response(JSON.stringify({ message: 'JSON expoected' }, null, 2), { status: 400 });
 		}
 	}
 
-	if (typeof requestData !== 'object') {
-		return new Response(JSON.stringify({ message: 'Object expected' }, null, 2), { status: 400 });
-	}
+	const requestData = schema.parse(requestDataRaw);
 
 	if (requestData.purge === true) {
-		PageInsightsMock.id = 1;
-		PageInsightsMock.views = 0;
+		PageInsightMock.id = 1;
+		PageInsightMock.views = 0;
 	}
 
-	if (typeof requestData.pageInsights === 'object') {
-		if (requestData.pageInsights.id === 'number') {
-			PageInsightsMock.id = requestData.pageInsights.id;
-		}
-
-		if (typeof requestData.pageInsights.views === 'number') {
-			PageInsightsMock.views = requestData.pageInsights.views;
-		}
+	if (requestData.pageInsights?.views !== undefined) {
+		PageInsightMock.views = requestData.pageInsights.views;
 	}
 
-	return new Response(
-		JSON.stringify(
-			{
-				pageInsights: PageInsightsMock
-			},
-			null,
-			2
-		)
-	);
+	const response: Schema = {
+		pageInsights: PageInsightMock,
+	};
+
+	return new Response(JSON.stringify(response, null, 2));
 }
