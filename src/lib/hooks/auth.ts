@@ -7,14 +7,12 @@ import GoogleProvider from '@auth/core/providers/google';
 import { GITHUB_ID, GITHUB_SECRET, GOOGLE_ID, GOOGLE_SECRET } from '$env/static/private';
 import type { Handle } from '@sveltejs/kit';
 
-
 const handleAuth = ((): Handle => {
 	if (isDbMock) {
-
 		return ({ event, resolve }) => {
 			event.locals.getSession = () => Promise.resolve(SessionMock.session);
 
-			return resolve(event)
+			return resolve(event);
 		};
 	} else {
 		return SvelteKitAuth({

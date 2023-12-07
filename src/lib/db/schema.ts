@@ -23,6 +23,16 @@ export const Users = pgTable('user', {
 
 export type User = typeof Users.$inferSelect;
 
+export const UsersMock: User[] = [
+	{
+		id: 'alice',
+		name: 'Alice',
+		email: 'alice@example.com',
+		emailVerified: new Date('2020-20-20'),
+		image: '',
+	},
+];
+
 export const Accounts = pgTable(
 	'account',
 	{
@@ -70,3 +80,23 @@ export const VerificationTokens = pgTable(
 );
 
 export type VerificationToken = typeof VerificationTokens.$inferSelect;
+
+export const Scribbles = pgTable('scribble', {
+	id: serial('id').notNull(),
+	body: text('body'),
+	userId: text('userId')
+		.notNull()
+		.references(() => Users.id, { onDelete: 'cascade' }),
+	createdAt: timestamp('createdAt', { mode: 'date' }).defaultNow(),
+});
+
+export type Scribble = typeof Scribbles.$inferSelect;
+
+export const ScribblesMock: Scribble[] = [
+	{
+		id: 1,
+		body: 'Hello, world!',
+		userId: 'alice',
+		createdAt: new Date('2023-01-01'),
+	},
+];

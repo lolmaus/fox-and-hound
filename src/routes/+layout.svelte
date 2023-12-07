@@ -1,6 +1,11 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/stores';
 </script>
+
+<nav>
+	<a href="/">Home</a>
+	<a href="/scribbles">Scribbles</a>
+</nav>
 
 {#if $page.data.session}
 	{#if $page.data.session.user?.image}
