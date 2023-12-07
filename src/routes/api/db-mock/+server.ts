@@ -1,5 +1,5 @@
 import { isDbMock } from '$lib/db/mock';
-import { PageInsightMock } from '$lib/db/schema';
+import { PageInsightMock } from '$lib/db/mock';
 import type { RequestEvent } from './$types';
 import z from 'zod';
 

@@ -12,7 +12,7 @@ export const load = async () => {
 
 const fetchViews = async (): Promise<number> => {
 	if (isDbMock) {
-		const { PageInsightMock: PageInsightsMock } = await import('$lib/db/schema');
+		const { PageInsightMock: PageInsightsMock } = await import('$lib/db/mock');
 
 		return ++PageInsightsMock.views;
 	} else {

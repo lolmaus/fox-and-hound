@@ -8,11 +8,6 @@ export const PageInsights = pgTable('page_insights', {
 
 export type PageInsight = typeof PageInsights.$inferSelect;
 
-export const PageInsightMock: PageInsight = {
-	id: 1,
-	views: 0,
-};
-
 export const Users = pgTable('user', {
 	id: text('id').notNull().primaryKey(),
 	name: text('name'),
@@ -22,16 +17,6 @@ export const Users = pgTable('user', {
 });
 
 export type User = typeof Users.$inferSelect;
-
-export const UsersMock: User[] = [
-	{
-		id: 'alice',
-		name: 'Alice',
-		email: 'alice@example.com',
-		emailVerified: new Date('2020-20-20'),
-		image: '',
-	},
-];
 
 export const Accounts = pgTable(
 	'account',
@@ -91,12 +76,3 @@ export const Scribbles = pgTable('scribble', {
 });
 
 export type Scribble = typeof Scribbles.$inferSelect;
-
-export const ScribblesMock: Scribble[] = [
-	{
-		id: 1,
-		body: 'Hello, world!',
-		userId: 'alice',
-		createdAt: new Date('2023-01-01'),
-	},
-];

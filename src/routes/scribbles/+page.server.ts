@@ -1,5 +1,5 @@
 import { isDbMock } from '$lib/db/mock';
-import { Scribbles, type Scribble, Users, type User, UsersMock } from '$lib/db/schema';
+import { Scribbles, type Scribble, Users, type User } from '$lib/db/schema';
 import { eq } from 'drizzle-orm';
 
 export const load = async () => {
@@ -10,7 +10,7 @@ export const load = async () => {
 
 const fetchScribbles = async (): Promise<{ scribble: Scribble; user: User | null }[]> => {
 	if (isDbMock) {
-		const { ScribblesMock } = await import('$lib/db/schema');
+		const { ScribblesMock, UsersMock } = await import('$lib/db/mock');
 
 		return ScribblesMock.map((scribble) => {
 			const user = UsersMock.find((user) => user.id === scribble.userId) ?? null;
