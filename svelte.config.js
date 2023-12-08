@@ -18,6 +18,10 @@ const config = {
 		// 	checkOrigin: false,
 		// },
 	},
+
+	vitePlugin: {
+		inspector: true,
+	},
 };
 
 export default config;
