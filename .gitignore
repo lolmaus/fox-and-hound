@@ -14,3 +14,6 @@ vite.config.ts.timestamp-*
 /.history/
 /.vscode/
 /.idea/
+
+# Playwright
+/test-results/
