@@ -21,6 +21,17 @@ const handleAuth = ((): Handle => {
 				GitHub({ clientId: GITHUB_ID, clientSecret: GITHUB_SECRET }),
 				GoogleProvider({ clientId: GOOGLE_ID, clientSecret: GOOGLE_SECRET }),
 			],
+			callbacks: {
+				async session({ session, user }) {
+					if (!session.user) {
+						throw new Error('Expected `session.user` to exist at this point.');
+					}
+
+					session.user.id = user.id;
+
+					return session;
+				},
+			},
 		});
 	}
 })();
