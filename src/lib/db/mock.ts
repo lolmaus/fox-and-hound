@@ -18,7 +18,7 @@ export const UsersMock: User[] = [
 		id: 'alice',
 		name: 'Alice',
 		email: 'alice@example.com',
-		emailVerified: new Date('2020-20-20'),
+		emailVerified: new Date('2020-02-20'),
 		image: '',
 	},
 ];
@@ -31,3 +31,12 @@ export const ScribblesMock: Scribble[] = [
 		createdAt: new Date('2023-01-01'),
 	},
 ];
+
+export function nextAvailableId(arr: { id: number }[]): number {
+	return (
+		(arr
+			.map((item) => item.id)
+			.sort()
+			.pop() ?? 0) + 1
+	);
+}
