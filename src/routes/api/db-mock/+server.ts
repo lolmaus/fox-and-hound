@@ -1,6 +1,4 @@
-import { ScribblesMock, UsersMock, isDbMock } from '$lib/db/mock';
-import { PageInsightMock } from '$lib/db/mock';
-import { purgeArray } from '$lib/utils/stdlib';
+import { MockState, isDbMock } from '$lib/db/mock';
 import type { RequestEvent } from './$types';
 import z from 'zod';
 
@@ -58,30 +56,23 @@ export async function POST({ request }: RequestEvent) {
 	const requestData = mockSchema.parse(requestDataRaw);
 
 	if (requestData.purge === true) {
-		PageInsightMock.id = 1;
-		PageInsightMock.views = 0;
+		MockState.pageInsight = { id: 1, views: 0 };
 
-		purgeArray(UsersMock);
-		purgeArray(ScribblesMock);
+		MockState.users = [];
+		MockState.scribbles = [];
 	}
 
 	if (requestData.pageInsights?.views !== undefined) {
-		PageInsightMock.views = requestData.pageInsights.views;
+		MockState.pageInsight.views = requestData.pageInsights.views;
 	}
 
 	if (requestData.users) {
-		UsersMock.push(...requestData.users);
+		MockState.users.push(...requestData.users);
 	}
 
 	if (requestData.scribbles) {
-		ScribblesMock.push(...requestData.scribbles);
+		MockState.scribbles.push(...requestData.scribbles);
 	}
 
-	const response: MockSchema = {
-		pageInsights: PageInsightMock,
-		users: UsersMock,
-		scribbles: ScribblesMock,
-	};
-
-	return new Response(JSON.stringify(response, null, 2));
+	return new Response(JSON.stringify(MockState, null, 2));
 }

@@ -1,6 +1,6 @@
 import { DrizzleAdapter } from '@auth/drizzle-adapter';
 import { conn } from '../db/conn.server';
-import { SessionMock, isDbMock } from '../db/mock';
+import { MockState, isDbMock } from '../db/mock';
 import { SvelteKitAuth } from '@auth/sveltekit';
 import GitHub from '@auth/core/providers/github';
 import GoogleProvider from '@auth/core/providers/google';
@@ -10,7 +10,7 @@ import type { Handle } from '@sveltejs/kit';
 const handleAuth = ((): Handle => {
 	if (isDbMock) {
 		return ({ event, resolve }) => {
-			event.locals.getSession = () => Promise.resolve(SessionMock.session);
+			event.locals.getSession = () => Promise.resolve(MockState.session);
 
 			return resolve(event);
 		};

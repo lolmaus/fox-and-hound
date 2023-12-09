@@ -12,9 +12,9 @@ export const load = async () => {
 
 const fetchViews = async (): Promise<number> => {
 	if (isDbMock) {
-		const { PageInsightMock: PageInsightsMock } = await import('$lib/db/mock');
+		const { MockState: State } = await import('$lib/db/mock');
 
-		return ++PageInsightsMock.views;
+		return ++State.pageInsight.views;
 	} else {
 		const { conn } = await import('$lib/db/conn.server');
 		const insights = await conn.select().from(PageInsights).where(eq(PageInsights.id, 1));

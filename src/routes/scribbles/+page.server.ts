@@ -43,16 +43,16 @@ export const actions = {
 		};
 
 		if (isDbMock) {
-			const { ScribblesMock } = await import('$lib/db/mock');
+			const { MockState } = await import('$lib/db/mock');
 
-			const id = nextAvailableId(ScribblesMock);
+			const id = nextAvailableId(MockState.scribbles);
 
 			const newScribble = {
 				...scribble,
 				id,
 			};
 
-			ScribblesMock.push(newScribble);
+			MockState.scribbles.push(newScribble);
 
 			return newScribble;
 		} else {
@@ -64,10 +64,10 @@ export const actions = {
 
 const fetchScribbles = async (): Promise<{ scribble: Scribble; user: User | null }[]> => {
 	if (isDbMock) {
-		const { ScribblesMock, UsersMock } = await import('$lib/db/mock');
+		const { MockState } = await import('$lib/db/mock');
 
-		return ScribblesMock.map((scribble) => {
-			const user = UsersMock.find((user) => user.id === scribble.userId) ?? null;
+		return MockState.scribbles.map((scribble) => {
+			const user = MockState.users.find((user) => user.id === scribble.userId) ?? null;
 
 			return { scribble, user };
 		});
